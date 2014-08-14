@@ -14,21 +14,21 @@ infEng = inflect.engine()
 print "\n\n.................. file copy ..................."
 print "................................................"
 
-sourcePath = "/Users/aimee/Downloads/test/"
-destinationPath = "/Users/aimee/Downloads/dest/"
+sourceDir = "/Users/aimee/Downloads/test/"
+destinationDir = "/Users/aimee/Downloads/dest/"
 
-if os.path.exists( sourcePath ) != True : 
-    print "Could not find", sourcePath, "Quitting."
+if os.path.exists( sourceDir ) != True : 
+    print "Could not find", sourceDir, "Quitting."
     quit()
 
-if os.path.exists( destinationPath ) != True :
-    print "Could not find", destinationPath, "Quitting."
+if os.path.exists( destinationDir ) != True :
+    print "Could not find", destinationDir, "Quitting."
     quit()
 
-filesInSourcePath = os.listdir( sourcePath )
-filesInDestinationPath = os.listdir( destinationPath )
+filesInSourceDir = os.listdir( sourceDir )
+filesInDestinationDir = os.listdir( destinationDir )
 
-if filesInSourcePath == []:
+if filesInSourceDir == []:
     print "Source directory contains no files. Quitting."
     quit()
 
@@ -53,7 +53,7 @@ elif userInput == "A" :
 
 sourceFiles = []
 fileCount = 0
-for file in filesInSourcePath :
+for file in filesInSourceDir :
     lowercaseFilename = file.lower()
     if lowercaseFilename.endswith(fileTypes) :
         sourceFiles.append(file)
@@ -63,7 +63,7 @@ if fileCount >= 1 :
 
     print fileCount, infEng.plural("file", fileCount), "found in source folder. Would you like to copy now?"
     while True:
-        userInput = raw_input("[c]opy or [q]uit?")
+        userInput = raw_input("[c]opy or [q]uit? ")
 
         if re.match('^[cq]$',userInput):
             break
@@ -75,14 +75,14 @@ if fileCount >= 1 :
         for sourceFile in sourceFiles:
             print "................................................"
             print "Checking destination for", sourceFile, "....."
-            if sourceFile not in filesInDestinationPath :
+            if sourceFile not in filesInDestinationDir :
 
-                sourceFilePath = sourcePath + sourceFile
-                statinfo = os.stat(sourceFilePath)
+                sourceFilePath = sourceDir + sourceFile
+                statinfo = os.stat(sourceFileDir)
                 fileSize = statinfo.st_size
                 print "File size:", fileSize, "bytes"
-                print "\nCopying", sourceFile, "to", destinationPath,".\n"
-                shutil.copy2(sourceFilePath, destinationPath)
+                print "\nCopying", sourceFile, "to", destinationDir,".\n"
+                shutil.copy2(sourceFilePath, destinationDir)
                 #pbar = ProgressBar(widgets=[Percentage(), Bar()], maxval=300).start() 
                 #for i in range(fileSize):
                 #    time.sleep(0.01)
