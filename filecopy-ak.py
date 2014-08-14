@@ -37,7 +37,7 @@ fileCount = 0
 for file in filesInSourcePath :
 	lowercaseFilename = file.lower()
 	if lowercaseFilename.endswith(fileTypes) :
-		sourceFiles.append(file)
+        sourceFiles.append(file)
         fileCount += 1
 
 if fileCount >= 1 :
