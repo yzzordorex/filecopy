@@ -16,11 +16,13 @@ print "\n\n.................. file copy ..................."
 sourcePath = "/Users/aimee/Downloads/test/"
 destinationPath = "/Users/aimee/Downloads/dest/"
 
-fileTypes = ".mp3",".ogg" #,".avi", ".mpg", ".mpeg", ".mov", ".mp4", ".mkv", ".m4v"
-
-if os.path.exists( sourcePath ) != True or os.path.exists( destinationPath ) != True :
-	print "Could not find paths. Quitting."
+if os.path.exists( sourcePath ) != True : 
+	print "Could not find", sourcePath, "Quitting."
 	quit()
+
+if os.path.exists( destinationPath ) != True :
+    print "Could not find", destinationPath, "Quitting."
+    quit()
 
 filesInSourcePath = os.listdir( sourcePath )
 filesInDestinationPath = os.listdir( destinationPath )
@@ -29,6 +31,7 @@ if filesInSourcePath == []:
 	print "Source directory contains no files. Quitting."
 	quit()
 
+fileTypes = ".mp3",".ogg" #,".avi", ".mpg", ".mpeg", ".mov", ".mp4", ".mkv", ".m4v"
 sourceFiles = []
 for file in filesInSourcePath :
 	lowercaseFilename = file.lower()
