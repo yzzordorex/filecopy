@@ -11,77 +11,58 @@ from progressbar import AnimatedMarker, Bar, BouncingBar, Counter, ETA, \
 
 infEng = inflect.engine()
 
-#Define paths and open Downloads folder
 sourcePath = "/Users/aimee/Downloads/test/"
 destinationPath = "/Users/aimee/Downloads/dest/"
 
+fileTypes = ".mp3",".ogg" #,".avi", ".mpg", ".mpeg", ".mov", ".mp4", ".mkv", ".m4v"
 
-
-#Define movie file types
-movTypes = ".mp3",".ogg"
-#movTypes = ".avi", ".mpg", ".mpeg", ".mov", ".mp4", ".mkv", ".m4v"
-
-movieFiles = []
-
-# Check: Source and Destination exist
 if os.path.exists( sourcePath ) != True or os.path.exists( destinationPath ) != True :
 	print "Could not find paths. Quitting."
 	quit()
 
-	
-#Return files in path to a list
 filesInSourcePath = os.listdir( sourcePath )
 filesInDestinationPath = os.listdir( destinationPath )
 
-
-#Are there files?
 if filesInSourcePath == []:
-	print "The Downloads folder contains no files. Quitting."
+	print "Source directory contains no files. Quitting."
 	quit()
 
-
-
-#Look for movie files in the source path and add to a list
+sourceFiles = []
 for file in filesInSourcePath :
-	lowerFile = file.lower()
-	if lowerFile.endswith(movTypes) :
-		movieFiles.append(file)
+	lowercaseFilename = file.lower()
+	if lowercaseFilename.endswith(fileTypes) :
+		sourceFiles.append(file)
 
-movieFileCount = len(movieFiles)
+fileCount = len(sourceFiles)
 
-if movieFileCount >= 1 :
+if fileCount >= 1 :
 
-    print "\nMOVIES FOUND IN DOWNLOADS FOLDER:\n", movieFiles
-    print "\n\n", movieFileCount, "Movie", infEng.plural("file", movieFileCount)
-    print " found in your Downloads folder.\nWould you like to copy now?\n"
+    print fileCount, infEng.plural("file", fileCount), "found in source folder.\nWould you like to copy now?\n"
 
     while True:
-        userInp = raw_input("Enter 'y' to continue or 'n' to quit.\n ")
+        userInput = raw_input("Enter 'y' to continue or 'n' to quit.\n ")
 
-        if re.match('^[yn]$',userInp):
+        if re.match('^[yn]$',userInput):
             break
         else:
-            print "Invalid input. Enter 'y' to continue or 'n' to quit."
+            print "Enter 'y' to continue or 'n' to quit."
             continue
 
-	if userInp == 'n':
+	if userInput == 'n':
 		print "Quitting."
 		quit()
 
-            
-            
-    #Checks if movie already exists in Destination folder, copies movie to Destination folder if not.
-    if userInp == 'y':
-        for movFile in movieFiles:
-            print "Checking if", movFile, "already exists..."
-            if movFile not in os.listdir(destinationPath):
+    if userInput == 'y':
+        for sourceFile in sourceFiles:
+            print "Checking if", sourceFile, "already exists..."
+            if sourceFile not in os.listdir(destinationPath):
 
-                movFilePath = sourcePath + movFile
-                statinfo = os.stat(movFilePath)
+                sourceFilePath = sourcePath + sourceFile
+                statinfo = os.stat(sourceFilePath)
                 fileSize = statinfo.st_size
                 print fileSize, "bytes"
-                print movFile, "found.\nCopying to:", destinationPath,".\n"
-                shutil.copy2(movFilePath, destinationPath)
+                print sourceFile, "found.\nCopying to:", destinationPath,".\n"
+                shutil.copy2(sourceFilePath, destinationPath)
                 #pbar = ProgressBar(widgets=[Percentage(), Bar()], maxval=300).start() 
                 #for i in range(fileSize):
                 #    time.sleep(0.01)
@@ -89,4 +70,4 @@ if movieFileCount >= 1 :
                 #pbar.finish()
 
             else :
-                print movFile, "already exists. [DID NOT COPY]\n\n\n"
+                print sourceFile, "already exists. Did not copy.\n\n\n"
