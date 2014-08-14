@@ -33,12 +33,12 @@ if filesInSourcePath == []:
 
 fileTypes = ".mp3",".ogg" #,".avi", ".mpg", ".mpeg", ".mov", ".mp4", ".mkv", ".m4v"
 sourceFiles = []
+fileCount = 0
 for file in filesInSourcePath :
 	lowercaseFilename = file.lower()
 	if lowercaseFilename.endswith(fileTypes) :
 		sourceFiles.append(file)
-
-fileCount = len(sourceFiles)
+        fileCount += 1
 
 if fileCount >= 1 :
 
