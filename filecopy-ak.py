@@ -55,13 +55,13 @@ if fileCount >= 1 :
     if userInput == 'y':
         for sourceFile in sourceFiles:
             print "Checking if", sourceFile, "already exists..."
-            if sourceFile not in os.listdir(destinationPath):
+            if sourceFile not in filesInDestinationPath :
 
                 sourceFilePath = sourcePath + sourceFile
                 statinfo = os.stat(sourceFilePath)
                 fileSize = statinfo.st_size
                 print fileSize, "bytes"
-                print sourceFile, "found.\nCopying to:", destinationPath,".\n"
+                print "\nCopying", sourceFile, "to", destinationPath,".\n"
                 shutil.copy2(sourceFilePath, destinationPath)
                 #pbar = ProgressBar(widgets=[Percentage(), Bar()], maxval=300).start() 
                 #for i in range(fileSize):
@@ -70,4 +70,4 @@ if fileCount >= 1 :
                 #pbar.finish()
 
             else :
-                print sourceFile, "already exists. Did not copy.\n\n\n"
+                print "File exists. Did not copy.\n\n\n"
