@@ -12,6 +12,7 @@ from progressbar import AnimatedMarker, Bar, BouncingBar, Counter, ETA, \
 infEng = inflect.engine()
 
 print "\n\n.................. file copy ..................."
+print "................................................"
 
 sourcePath = "/Users/aimee/Downloads/test/"
 destinationPath = "/Users/aimee/Downloads/dest/"
@@ -60,19 +61,19 @@ for file in filesInSourcePath :
 
 if fileCount >= 1 :
 
-    print fileCount, infEng.plural("file", fileCount), "found in source folder.\nWould you like to copy now?"
-    print "................................................"
+    print fileCount, infEng.plural("file", fileCount), "found in source folder. Would you like to copy now?"
     while True:
         userInput = raw_input("[c]opy or [q]uit?")
 
         if re.match('^[cq]$',userInput):
             break
         else:
-            print "Enter 'c' to copy or 'q' to quit."
+            print "Enter 'c' to copy or 'q' to quit. "
             continue
 
     if userInput == 'c':
         for sourceFile in sourceFiles:
+            print "................................................"
             print "Checking destination for", sourceFile, "....."
             if sourceFile not in filesInDestinationPath :
 
