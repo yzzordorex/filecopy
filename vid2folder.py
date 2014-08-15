@@ -80,12 +80,25 @@ def copyMovies():
 					movSourceFilePath = sourcePath + movFile
 					movDestFilePath = destPath + movFile
 
-					sourceStatInfo = os.stat(movSourceFilePath)
-					sourceFileSize = os.stat.sourceStatInfo.st_size
+#					sourceStatInfo = os.stat(movSourceFilePath)
+					sourceFileSize = os.stat(movSourceFilePath).st_size
+					copied = 0
+					copySource = open(movSourceFilePath, 'rb')
+					copyTarget = open(movDestFilePath, 'wb')
 
 					print movFile, "found.\nCopying to:", destPath
 
-					shutil.copy2(movSourceFilePath, destPath)
+					while True:
+						chunk = copySource.read(32768)
+						if not chunk:
+							break
+						copyTarget.write(chunk)
+						copied += len(chunk)
+						print '\r%02d%%' % (copied * 100 / sourceFileSize),
+						copySource.close()
+						copyTarget.close()
+
+#					shutil.copy2(movSourceFilePath, destPath)
 
 					'''pbar = ProgressBar(widgets=[Percentage(), Bar()], maxval=sourceFileSize).start()
 					for i in range( ):
