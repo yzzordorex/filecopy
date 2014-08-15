@@ -1,6 +1,8 @@
 '''Notes:
 	- Possible while loop to frequently check the source folder for new files.
 	- Try merging movie counter and file counter into same function.
+	- Look for movie file in /Downloads/some folder/ and copy entire folder to Destination
+	- Check for music, add music option.
 	- A copy progress counter would be nice.
 	- Make a simple GUI.
 		- Allow user to set Source and Destination paths
@@ -22,24 +24,18 @@ infEng = inflect.engine()
 sourcePath = "/Users/bryan/Downloads/test/"
 destPath = "/Volumes/Europa/Movies/"
 
-#Return files in path to a list
-filesInSourcePath = os.listdir( sourcePath )
-filesInDestinationPath = os.listdir( destPath )
-
 #Define movie file types
 movTypes = ".avi", ".mpg", ".mpeg", ".mov", ".mp4", ".mkv", ".m4v"
 
 movieFiles = []
 
-#Function to check if both Source and Destination paths exist
-def sysCheck() :
-	doesDLPathExist = os.path.exists( sourcePath )
-	doesULPathExist = os.path.exists( destPath )
-	try :
-		doesDLPathExist and doesULPathExist == True
-	except :
-		print "Could not find paths. Quitting."
-		quit()
+try :
+	#Return files in path to a list
+	filesInSourcePath = os.listdir( sourcePath )
+	filesInDestinationPath = os.listdir( destPath )
+except :
+	print "Could not find paths. Quitting."
+	quit()
 
 #Function to check if there are any files in the Source path, exit if none.
 def countFiles():
@@ -89,22 +85,16 @@ def copyMovies():
 
 					print movFile, "found.\nCopying to:", destPath
 
-					while shutil.copy2(movSourceFilePath, destPath):
-						destStatInfo = os.stat(movDestFilePath)
-						destFileSize = destStatInfo.st_size
-						for i in destFilePath:
-							print i
-						print "yay-"
+					shutil.copy2(movSourceFilePath, destPath)
 
 					'''pbar = ProgressBar(widgets=[Percentage(), Bar()], maxval=sourceFileSize).start()
 					for i in range( ):
 						time.sleep(0.01)
 						pbar.update(i+1)
-					pbar.finish()
+					pbar.finish()'''
 
-				if movFile in filesInDestPath:
-					print movFile, "already exists. [DID NOT COPY]"'''
+				if movFile in os.listdir(destPath):
+					print movFile, "already exists. [DID NOT COPY]"
 
-sysCheck()
 countFiles()
 copyMovies()
