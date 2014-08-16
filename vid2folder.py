@@ -30,16 +30,12 @@ def doesDirectoryExist(p):
 	else :
 		return True
 
-if doesDirectoryExist(sourcePath) != True :
+if not doesDirectoryExist(sourcePath) :
 	print "Source Path not found. Quitting."
 	quit()
-elif doesDirectoryExist(destPath) != True :
+if not doesDirectoryExist(destPath) :
 	print "Destination Path not found. Quitting."
 	quit()
-else :
-	print "Paths found."
-
-print doesDirectoryExist(sourcePath), doesDirectoryExist(destPath)
 
 #Return files in path to a list
 filesInSourcePath = os.listdir( sourcePath )
