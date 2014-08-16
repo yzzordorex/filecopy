@@ -6,7 +6,6 @@
 	- A copy progress counter would be nice.
 	- Make a simple GUI.
 		- Allow user to set Source and Destination paths
-		- 
 '''
 import sys, time
 import os, shutil
