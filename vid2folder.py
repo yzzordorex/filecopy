@@ -30,14 +30,16 @@ def doesDirectoryExist(p):
 	else :
 		return True
 
-try :
-    # 1. test one condition per try.
-    # try takes a statement that returns true or false. thus: doesDirectoryExist(sourcepath) NOT print, print always returns true
-	doesDirectoryExist(sourcePath)
-	doesDirectoryExist(destPath)
-except :
-	print "One more paths not found. Quitting."
+if doesDirectoryExist(sourcePath) != True :
+	print "Source Path not found. Quitting."
 	quit()
+elif doesDirectoryExist(destPath) != True :
+	print "Destination Path not found. Quitting."
+	quit()
+else :
+	print "Paths found."
+
+print doesDirectoryExist(sourcePath), doesDirectoryExist(destPath)
 
 #Return files in path to a list
 filesInSourcePath = os.listdir( sourcePath )
