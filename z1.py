@@ -4,7 +4,6 @@ usersDir = "/Users/"
 sourceDir = "/Users/aimee/Downloads/test/"
 destinationDir = "/Users/aimee/Downloads/dest/"
 fakeDir = "/Users/SteveJobs/Secret/uber_secret/pc-BAK/My Documents/My Pictures/Steve/pr0n/"
-example = "~/space test/"
 
 
 # Rewrite the following as a function. 
@@ -26,4 +25,3 @@ print "Is ", usersDir, "valid?", doesDirectoryExist(usersDir)
 print "Is ", sourceDir, "valid?", doesDirectoryExist(sourceDir)
 print "Is ", destinationDir, "valid?", doesDirectoryExist(destinationDir)
 print "Is ", fakeDir, "valid?", doesDirectoryExist(fakeDir)
-print "Is ", example, "valid?", doesDirectoryExist(example)
