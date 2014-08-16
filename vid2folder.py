@@ -34,6 +34,8 @@ def doesDirectoryExist(p):
 		return True
 
 try :
+    # 1. test one condition per try.
+    # try takes a statement that returns true or false. thus: doesDirectoryExist(sourcepath) NOT print, print always returns true
 	print "Is", sourcePath, "valid?", doesDirectoryExist(sourcePath)
 	print "Is", destPath, "valid?", doesDirectoryExist(destPath)
 except :
