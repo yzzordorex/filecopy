@@ -15,15 +15,17 @@ fakeDir = "/Users/SteveJobs/Secret/uber_secret/pc-BAK/My Documents/My Pictures/S
 # There will be a part two....
 
 def pathCheck(p):
-    if os.path.exists( p ) != True : 
+	if os.path.exists( p ) != True : 
 		print "Could not find", p, "Quitting."
-		quit()
+		return False
+	else :
+		return True
 
 #if os.path.exists( destinationDir ) != True :
 #   print "Could not find", destinationDir, "Quitting."
 #    quit()
 
-pathCheck(usersDir)
-pathCheck(sourceDir)
-pathCheck(destinationDir)
-pathcheck(fakeDir)
+print pathCheck(usersDir)
+print pathCheck(sourceDir)
+print pathCheck(destinationDir)
+print pathCheck(fakeDir)
