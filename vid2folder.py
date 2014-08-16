@@ -20,30 +20,45 @@ from progressbar import AnimatedMarker, Bar, BouncingBar, Counter, ETA, \
 
 infEng = inflect.engine()
 
-#Define paths and open Downloads folder
+#User paths
 sourcePath = "/Users/bryan/Downloads/test/"
 destPath = "/Volumes/Europa/Movies/"
 
-#Define movie file types
-movTypes = ".avi", ".mpg", ".mpeg", ".mov", ".mp4", ".mkv", ".m4v"
-
-movieFiles = []
+#Define if path exists, checks if source and destination paths exist.
+def doesDirectoryExist(p):
+	if os.path.exists( p ) != True : 
+		print "No, it's not valid."
+		raise Exception
+	else :
+		print "Yes, it's valid."
+		return True
 
 try :
-	#Return files in path to a list
-	filesInSourcePath = os.listdir( sourcePath )
-	filesInDestinationPath = os.listdir( destPath )
+	print "Is", sourcePath, "valid?", doesDirectoryExist(sourcePath)
+	print "Is", destPath, "valid?", doesDirectoryExist(destPath)
 except :
-	print "Could not find paths. Quitting."
+	print "One more paths not found. Quitting."
 	quit()
 
-#Function to check if there are any files in the Source path, exit if none.
-def countFiles():
-	if os.listdir(sourcePath) == []:
-		print "The Downloads folder contains no files. Quitting."
-		quit()
+	#Return files in path to a list
+#	filesInSourcePath = os.listdir( sourcePath )
+#	filesInDestinationPath = os.listdir( destPath )
 
-#Function to copy movie files
+#Movie file types.
+movTypes = ".avi", ".mpg", ".mpeg", ".mov", ".mp4", ".mkv", ".m4v"
+movieFiles = []
+
+#Return files in paths to a list
+filesInSourcePath = os.listdir( sourcePath )
+filesInDestinationPath = os.listdir( destPath )
+
+#Is this redundant?
+#Function to check if there are any files in the Source path, exit if none.
+#def countFiles():
+#	if os.listdir(sourcePath) == []:
+#		print "The Downloads folder contains no files. Quitting."
+#		quit()
+
 def copyMovies():
 	#Look for movie files in the source path and add to a list
 	for file in filesInSourcePath :
@@ -80,15 +95,15 @@ def copyMovies():
 					movSourceFilePath = sourcePath + movFile
 					movDestFilePath = destPath + movFile
 
-#					sourceStatInfo = os.stat(movSourceFilePath)
 					sourceFileSize = os.stat(movSourceFilePath).st_size
 					copied = 0
 					copySource = open(movSourceFilePath, 'rb')
 					copyTarget = open(movDestFilePath, 'wb')
 
 					print movFile, "found.\nCopying to:", destPath
+					shutil.copy2(movSourceFilePath, destPath)
 
-					while True:
+					'''while True:
 						chunk = copySource.read(32768)
 						if not chunk:
 							break
@@ -98,9 +113,7 @@ def copyMovies():
 						copySource.close()
 						copyTarget.close()
 
-#					shutil.copy2(movSourceFilePath, destPath)
-
-					'''pbar = ProgressBar(widgets=[Percentage(), Bar()], maxval=sourceFileSize).start()
+					'pbar = ProgressBar(widgets=[Percentage(), Bar()], maxval=sourceFileSize).start()
 					for i in range( ):
 						time.sleep(0.01)
 						pbar.update(i+1)
@@ -109,5 +122,5 @@ def copyMovies():
 				if movFile in os.listdir(destPath):
 					print movFile, "already exists. [DID NOT COPY]"
 
-countFiles()
+#countFiles()
 copyMovies()
