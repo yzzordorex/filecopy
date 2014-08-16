@@ -22,22 +22,20 @@ infEng = inflect.engine()
 
 #User paths
 sourcePath = "/Users/bryan/Downloads/test/"
-destPath = "/Volumes/Europa/Movies/"
+destPath = "/Volumes/Europa/Movies2/"
 
 #Define if path exists, checks if source and destination paths exist.
 def doesDirectoryExist(p):
 	if os.path.exists( p ) != True : 
-		print "No, it's not valid."
 		raise Exception
 	else :
-		print "Yes, it's valid."
 		return True
 
 try :
     # 1. test one condition per try.
     # try takes a statement that returns true or false. thus: doesDirectoryExist(sourcepath) NOT print, print always returns true
-	print "Is", sourcePath, "valid?", doesDirectoryExist(sourcePath)
-	print "Is", destPath, "valid?", doesDirectoryExist(destPath)
+	doesDirectoryExist(sourcePath)
+	doesDirectoryExist(destPath)
 except :
 	print "One more paths not found. Quitting."
 	quit()
