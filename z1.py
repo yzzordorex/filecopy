@@ -4,7 +4,7 @@ usersDir = "/Users/"
 sourceDir = "/Users/aimee/Downloads/test/"
 destinationDir = "/Users/aimee/Downloads/dest/"
 fakeDir = "/Users/SteveJobs/Secret/uber_secret/pc-BAK/My Documents/My Pictures/Steve/pr0n/"
-example = "~/space test/"
+example = "/Users/space test/"
 
 
 # Rewrite the following as a function. 
