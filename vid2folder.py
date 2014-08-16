@@ -21,7 +21,7 @@ from progressbar import AnimatedMarker, Bar, BouncingBar, Counter, ETA, \
 infEng = inflect.engine()
 
 #User paths
-sourcePath = "/Users/bryan/Downloads/test2/"
+sourcePath = "/Users/bryan/Downloads/test/"
 destPath = "/Volumes/Europa/Movies/"
 
 #Define if path exists, checks if source and destination paths exist.
