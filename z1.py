@@ -4,6 +4,7 @@ usersDir = "/Users/"
 sourceDir = "/Users/aimee/Downloads/test/"
 destinationDir = "/Users/aimee/Downloads/dest/"
 fakeDir = "/Users/SteveJobs/Secret/uber_secret/pc-BAK/My Documents/My Pictures/Steve/pr0n/"
+example = "~/space test/"
 
 
 # Rewrite the following as a function. 
@@ -14,18 +15,15 @@ fakeDir = "/Users/SteveJobs/Secret/uber_secret/pc-BAK/My Documents/My Pictures/S
 # bonus points if you add more directories to test and demonstrate their output
 # There will be a part two....
 
-def pathCheck(p):
+def doesDirectoryExist(p):
 	if os.path.exists( p ) != True : 
-		print "Could not find", p, "Quitting."
 		return False
 	else :
 		return True
 
-#if os.path.exists( destinationDir ) != True :
-#   print "Could not find", destinationDir, "Quitting."
-#    quit()
 
-print pathCheck(usersDir)
-print pathCheck(sourceDir)
-print pathCheck(destinationDir)
-print pathCheck(fakeDir)
+print "Is ", usersDir, "valid?", doesDirectoryExist(usersDir)
+print "Is ", sourceDir, "valid?", doesDirectoryExist(sourceDir)
+print "Is ", destinationDir, "valid?", doesDirectoryExist(destinationDir)
+print "Is ", fakeDir, "valid?", doesDirectoryExist(fakeDir)
+print "Is ", example, "valid?", doesDirectoryExist(example)
