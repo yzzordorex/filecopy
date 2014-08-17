@@ -41,54 +41,77 @@ if not doesDirectoryExist(destPath) :
 filesInSourcePath = os.listdir( sourcePath )
 filesInDestinationPath = os.listdir( destPath )
 
-#Movie file types.
+#File extension types.
 movTypes = ".avi", ".mpg", ".mpeg", ".mov", ".mp4", ".mkv", ".m4v"
+musicTypes = ".mp3", ".m4a", ".ogg", ".mka"
+
 movieFiles = []
+copySourceMoviesFiles = []
+
+#Creates a list of all movie files in the Source destination and it's subfolders.
+#movieFiles = [os.path.join(root, name)
+# 				for root, dirs, files in os.walk(sourcePath)
+#				for name in files
+#				if name.endswith(movTypes)]
 
 #Return files in paths to a list
 filesInSourcePath = os.listdir( sourcePath )
 filesInDestinationPath = os.listdir( destPath )
 
 #Look for movie files in the source path and add to a list
-for file in filesInSourcePath :
-	lowerFile = file.lower()
-	if lowerFile.endswith(movTypes) :
-		movieFiles.append(file)
+#root returns the path of each file
+#dirs returns sub folders of root
+#files returns a list of files in root
+for root, dirs, files in os.walk(sourcePath) :
+	for name in files:
+		if name.endswith(movTypes):
+			movieFiles.append( name )
+			filePathJoin = os.path.join(root, name)
+			copySourceMoviesFiles.append( filePathJoin )
+
+#for file in filesInSourcePath :
+#	lowerFile = file.lower()
+#	if lowerFile.endswith(movTypes) :
+#		movieFiles.append(file)
 
 movieFileCount = len(movieFiles)
 
 #If any movie files are present in the Source folder, print movies found
 if movieFileCount >= 1 :
-	print movieFileCount, "[MOVIES IN DOWNLOADS FOLDER:]\n", movieFiles, "\n\n", "Movie", infEng.plural("file", movieFileCount), "found in your Downloads folder.\nWould you like to copy the", infEng.plural("movie", movieFileCount), "to you Movie folder now?\n"
+	print movieFileCount, "[MOVIES FOUND:]\n", movieFiles, "\n\n", "Movie", infEng.plural("file", movieFileCount), "found in your Downloads folder and subfolders.\nWould you like to copy the", infEng.plural("movie", movieFileCount), "to you Movie folder now?\n"
 
 	#Prompts if user would like to copy movies
 	while True :
-		userInp = raw_input("Enter 'y' to continue or 'n' to quit. ")
-		acceptInp = re.match('^[yn]$',userInp)
+		userInp = raw_input("Enter 'y' to continue or 'q' to quit. ")
+		acceptInp = re.match('^[yq]$',userInp)
 		if acceptInp:
 			break
 		else :
-			print "Invalid input. Enter 'y' to continue or 'n' to quit."
+			print "Invalid input. Enter 'y' to continue or 'q' to quit."
 			continue
 
-	if userInp == 'n':
+	if userInp == 'q':
 		print "Quitting."
 		quit()
 
 	#Checks if movie already exists in Destination folder, copies movie to Destination folder if not.
 	if userInp == 'y':
-		for movFile in movieFiles:
 
-			if movFile in os.listdir(destPath):
-				print movFile, "Already exists! [DID NOT COPY]"
+		for movFileName in movieFiles:
+			if movFileName in os.listdir(destPath):
+				print movFileName, "Already exists! [DID NOT COPY]"
 
-			if movFile not in os.listdir(destPath):
+			if movFileName not in os.listdir(destPath):
 				
-				movSourceFilePath = sourcePath + movFile
-				movDestFilePath = destPath + movFile
+#				movSourceFilePath = sourcePath + movFile
+#				movDestFilePath = destPath + movFile
+#				copySourceMovies = str(copySourceMovies)
 
-				print "Movies found in Downloads folder:\n", movFile, "[COPYING...]\nCopying movie to:", destPath
-				shutil.copy2(movSourceFilePath, destPath)
+				print "Movies found in Downloads folder and subfolders:\n", movFileName, "[COPYING...]\nCopying movie to:", destPath
+				# shutil.copytree(src, dst, symlinks=False, ignore=None)
+				shutil.copytree(sourcePath, destPath, symlinks=False)
+
+#				shutil.copy2(movFile, destPath)
 
 				'''sourceFileSize = os.stat(movSourceFilePath).st_size
 				copied = 0
