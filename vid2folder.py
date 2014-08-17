@@ -49,67 +49,64 @@ movieFiles = []
 filesInSourcePath = os.listdir( sourcePath )
 filesInDestinationPath = os.listdir( destPath )
 
-def copyMovies():
-	#Look for movie files in the source path and add to a list
-	for file in filesInSourcePath :
-		lowerFile = file.lower()
-		if lowerFile.endswith(movTypes) :
-			movieFiles.append(file)
+#Look for movie files in the source path and add to a list
+for file in filesInSourcePath :
+	lowerFile = file.lower()
+	if lowerFile.endswith(movTypes) :
+		movieFiles.append(file)
 
-	movieFileCount = len(movieFiles)
+movieFileCount = len(movieFiles)
 
-	#If any movie files are present in the Source folder, print movies found
-	if movieFileCount >= 1 :
-		print movieFileCount, "[MOVIES IN DOWNLOADS FOLDER:]\n", movieFiles, "\n\n", "Movie", infEng.plural("file", movieFileCount), "found in your Downloads folder.\nWould you like to copy the", infEng.plural("movie", movieFileCount), "to you Movie folder now?\n"
+#If any movie files are present in the Source folder, print movies found
+if movieFileCount >= 1 :
+	print movieFileCount, "[MOVIES IN DOWNLOADS FOLDER:]\n", movieFiles, "\n\n", "Movie", infEng.plural("file", movieFileCount), "found in your Downloads folder.\nWould you like to copy the", infEng.plural("movie", movieFileCount), "to you Movie folder now?\n"
 
-		#Prompts if user would like to copy movies
-		while True :
-			userInp = raw_input("Enter 'y' to continue or 'n' to quit. ")
-			acceptInp = re.match('^[yn]$',userInp)
-			if acceptInp:
-				break
-			else :
-				print "Invalid input. Enter 'y' to continue or 'n' to quit."
-				continue
+	#Prompts if user would like to copy movies
+	while True :
+		userInp = raw_input("Enter 'y' to continue or 'n' to quit. ")
+		acceptInp = re.match('^[yn]$',userInp)
+		if acceptInp:
+			break
+		else :
+			print "Invalid input. Enter 'y' to continue or 'n' to quit."
+			continue
 
-		if userInp == 'n':
-			print "Quitting."
-			quit()
+	if userInp == 'n':
+		print "Quitting."
+		quit()
 
-		#Checks if movie already exists in Destination folder, copies movie to Destination folder if not.
-		if userInp == 'y':
-			for movFile in movieFiles:
+	#Checks if movie already exists in Destination folder, copies movie to Destination folder if not.
+	if userInp == 'y':
+		for movFile in movieFiles:
 
-				if movFile in os.listdir(destPath):
-					print movFile, "Already exists! [DID NOT COPY]"
+			if movFile in os.listdir(destPath):
+				print movFile, "Already exists! [DID NOT COPY]"
 
-				if movFile not in os.listdir(destPath):
-					
-					movSourceFilePath = sourcePath + movFile
-					movDestFilePath = destPath + movFile
+			if movFile not in os.listdir(destPath):
+				
+				movSourceFilePath = sourcePath + movFile
+				movDestFilePath = destPath + movFile
 
-					print "Movies found in Downloads folder:\n", movFile, "[COPYING...]\nCopying movie to:", destPath
-					shutil.copy2(movSourceFilePath, destPath)
+				print "Movies found in Downloads folder:\n", movFile, "[COPYING...]\nCopying movie to:", destPath
+				shutil.copy2(movSourceFilePath, destPath)
 
-					'''sourceFileSize = os.stat(movSourceFilePath).st_size
-					copied = 0
-					copySource = open(movSourceFilePath, 'rb')
-					copyTarget = open(movDestFilePath, 'wb')
+				'''sourceFileSize = os.stat(movSourceFilePath).st_size
+				copied = 0
+				copySource = open(movSourceFilePath, 'rb')
+				copyTarget = open(movDestFilePath, 'wb')
 
-					while True:
-						chunk = copySource.read(32768)
-						if not chunk:
-							break
-						copyTarget.write(chunk)
-						copied += len(chunk)
-						print '\r%02d%%' % (copied * 100 / sourceFileSize),
-						copySource.close()
-						copyTarget.close()
+				while True:
+					chunk = copySource.read(32768)
+					if not chunk:
+						break
+					copyTarget.write(chunk)
+					copied += len(chunk)
+					print '\r%02d%%' % (copied * 100 / sourceFileSize),
+					copySource.close()
+					copyTarget.close()
 
-					'pbar = ProgressBar(widgets=[Percentage(), Bar()], maxval=sourceFileSize).start()
-					for i in range( ):
-						time.sleep(0.01)
-						pbar.update(i+1)
-					pbar.finish()'''
-
-copyMovies()
+				'pbar = ProgressBar(widgets=[Percentage(), Bar()], maxval=sourceFileSize).start()
+				for i in range( ):
+					time.sleep(0.01)
+					pbar.update(i+1)
+				pbar.finish()'''
