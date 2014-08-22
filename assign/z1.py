@@ -25,3 +25,13 @@ print "Is ", usersDir, "valid?", doesDirectoryExist(usersDir)
 print "Is ", sourceDir, "valid?", doesDirectoryExist(sourceDir)
 print "Is ", destinationDir, "valid?", doesDirectoryExist(destinationDir)
 print "Is ", fakeDir, "valid?", doesDirectoryExist(fakeDir)
+
+
+for root, dirs, files in os.walk("/Users/aimee/Downloads/"):
+    print root
+    print dirs
+    print files
+    print "\n==================\n"
+    for filename in files:
+        fullpath = os.path.join(root, filename)
+        print fullpath

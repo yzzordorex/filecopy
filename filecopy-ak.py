@@ -4,11 +4,6 @@ import os, shutil
 import re
 import inflect
 
-from progressbar import AnimatedMarker, Bar, BouncingBar, Counter, ETA, \
-                        FileTransferSpeed, FormatLabel, Percentage, \
-                        ProgressBar, ReverseBar, RotatingMarker, \
-                        SimpleProgress, Timer
-
 infEng = inflect.engine()
 
 print "\n\n.................. file copy ..................."
@@ -83,12 +78,7 @@ if fileCount >= 1 :
                 print "File size:", fileSize, "bytes"
                 print "\nCopying", sourceFile, "to", destinationDir,".\n"
                 shutil.copy2(sourceFilePath, destinationDir)
-                #pbar = ProgressBar(widgets=[Percentage(), Bar()], maxval=300).start() 
-                #for i in range(fileSize):
-                #    time.sleep(0.01)
-                #    pbar.update(i+1)
-                #pbar.finish()
-
+            
             else :
                 print "File exists. Did not copy."
         print "Done."
