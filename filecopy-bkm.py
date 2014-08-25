@@ -24,20 +24,57 @@ if not doesDirectoryExist(destPath) :
 	quit()
 
 #Return files in path to a list
-filesInSourcePath = os.listdir( sourcePath )
-filesInDestinationPath = os.listdir( destPath )
+filesInSourceDir = os.listdir( sourcePath )
+filesInDestinationDir = os.listdir( destPath )
+
+while True:
+    userInput = raw_input("Copy [a]udio files, [v]ideo files, [A]ll files or [q]uit? ")
+
+    if re.match('^[avAq]$',userInput):
+        break
+    else:
+    	print "Invalid input, try again."
+        continue
 
 #File extension types.
-movTypes = ".avi", ".mpg", ".mpeg", ".mov", ".mp4", ".mkv", ".m4v"
-musicTypes = ".mp3", ".m4a", ".ogg", ".mka"
+videoFileExts = ".avi", ".mpg", ".mpeg", ".mov", ".mp4", ".mkv", ".m4v"
+audioFileExts = ".mp3", ".m4a", ".ogg", ".mka"
 
-movieFiles = []
-copySourceMoviesFiles = []
+if userInput == "a" :
+	fileTypes = audioFileExts
+elif userInput == "v" :
+	fileTypes = videoFileExts
+elif userInput == "A" :
+	fileTypes = audioFileExts + videoFileExts
+elif userInput == "q" :
+	print "Quitting."
+	quit()
+
+sourceFiles = []
 
 for root, dirs, files in os.walk(sourcePath) :
-	for name in files:
-		if name.endswith(movTypes):
-			movieFiles.append( name )
-			filePathJoin = os.path.join(root, name)
-			copySourceMoviesFiles.append( filePathJoin )
+	if dirs not in filesInDestinationDir :
+		for name in dirs :
+			newSubFolder = os.path.join(destPath, name)
+			os.mkdir(newSubFolder)
 
+	for name in files :
+		lowercaseFileName = name.lower()
+
+		if lowercaseFileName.endswith(fileTypes) :
+			sourceFiles.append(name)
+
+		if name not in filesInSourceDir:
+			print 'name not in filesInSourceDir:', name
+
+			for name in files :
+				copyFile = os.path.join(root, name)
+				shutil.copy(copyFile, destPath)
+
+		if name in filesInSourceDir :
+			print "name in sourcePath: ", name
+			if name not in destPath :
+
+				copyFile = os.path.join(root, name)
+				print copyFile
+				shutil.copyfile(copyFile, destPath)
